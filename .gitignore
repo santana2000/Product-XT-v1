@@ -2,6 +2,9 @@
 node_modules
 /dist
 
+#三方库
+public/lib
+
 
 # local env files
 .env.local

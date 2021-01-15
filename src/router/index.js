@@ -5,20 +5,48 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  { path: '/', redirect: '/home'},
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    // 三个子路由 一个 一个 一个
+    // children: [
+		// 	{
+		// 		//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;
+		// 		//在生成路由时，主路由上的path会被自动添加到子路由之前，
+		// 		//所以子路由上的path不用在重新声明主路由上的path了。
+		// 		path: 'home',
+		// 		name: 'Home',
+		// 		component: Home
+		// 	},
+		// 	{
+		// 		path: 'categories',
+		// 		name: 'Categories',
+		// 		component: Categories
+		// 	},
+		// ]
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/About.vue')
-    }
+    },
+    // 两个子路由 一个elment 一个可视化
+    // children: [
+		// 	{
+		// 		path: 'elementtools',
+		// 		name: 'ElementTools',
+		// 		component: ElementTools
+		// 	},
+		// 	{
+		// 		path: 'visualtools',
+		// 		name: 'VisualTools',
+		// 		component: VisualTools
+		// 	},
+		
+		]
   }
 ]
 

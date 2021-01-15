@@ -1,4 +1,5 @@
 <template>
+    <!-- 导航按钮     -->
   <div class="home">
     <!-- assets的资源在这里用 -->
     <img alt="Vue logo" src="../assets/logo.png">
@@ -11,7 +12,7 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'Home',
+  name: 'NavBar',
   components: {
     HelloWorld
   },
