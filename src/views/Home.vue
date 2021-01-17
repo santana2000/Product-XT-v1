@@ -1,19 +1,21 @@
 <template>
   <div class="home">
     <!-- assets的资源在这里用 -->
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
+
+    <!-- 在组件中调节样式 -->
+    <MapContainer/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import MapContainer from './page-cesium/MapContainer.vue';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    MapContainer
   },
     data(){
         return {
@@ -48,3 +50,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.home{
+  height: 90%;
+}
+
+</style>>
+

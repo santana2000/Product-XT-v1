@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "cesium-navigation-es6": "^1.1.7",
+    "core-js": "^3.8.2",
     "echarts": "^5.0.0",
     "element-ui": "^2.14.1",
     "moment": "^2.29.1",

@@ -1,9 +1,15 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/login">Login</router-link> |
+
+      <router-link to="/">Map</router-link> |
+
+      <router-link to="/about">Visual</router-link> |
+
+      <router-link to="/error">404</router-link>
     </div>
+
     <router-view/>
   </div>
 </template>
@@ -15,10 +21,16 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
+  height: 100%;
 }
 
 #nav {
-  padding: 30px;
+  /* padding: 30px; */
+
+  height: 10%;
+  padding-top: 15px;
+  border: #42b983 2px solid;
 }
 
 #nav a {

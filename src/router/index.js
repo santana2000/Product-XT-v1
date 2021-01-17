@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '../views/page-system/Login.vue'
+import PageError from '../views/page-system/PageError.vue'
 
 Vue.use(VueRouter)
 
@@ -46,7 +48,17 @@ const routes = [
 		// 		component: VisualTools
 		// 	},
 		
-		]
+		// ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+	component: Login,
+  },
+  {
+    path: '/error',
+    name: 'PageError',
+	component: PageError,
   }
 ]
 
