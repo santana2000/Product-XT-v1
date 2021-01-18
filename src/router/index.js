@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/page-system/Login.vue'
 import PageError from '../views/page-system/PageError.vue'
+import ElementTools from '../views/page-table/ElementTools.vue'
+import VisualTools from '../views/page-table/VisualTools.vue'
 
 Vue.use(VueRouter)
 
@@ -36,19 +38,19 @@ const routes = [
       return import(/* webpackChunkName: "about" */ '../views/About.vue')
     },
     // 两个子路由 一个elment 一个可视化
-    // children: [
-		// 	{
-		// 		path: 'elementtools',
-		// 		name: 'ElementTools',
-		// 		component: ElementTools
-		// 	},
-		// 	{
-		// 		path: 'visualtools',
-		// 		name: 'VisualTools',
-		// 		component: VisualTools
-		// 	},
+    children: [
+			{
+				path: 'ele',
+				name: 'ElementTools',
+				component: ElementTools
+			},
+			{
+				path: 'vis',
+				name: 'VisualTools',
+				component: VisualTools
+			},
 		
-		// ]
+		]
   },
   {
     path: '/login',

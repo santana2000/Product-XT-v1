@@ -1,8 +1,7 @@
 <template>
-  <div class="home">
+  <div class="my-element">
     <!-- assets的资源在这里用 -->
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+element
   </div>
 </template>
 
@@ -48,3 +47,12 @@ export default {
     }
 }
 </script>
+<style scoped>
+.my-element{
+    height: 100%;
+    margin-left: 200px;
+    background-color: darkgoldenrod;
+}
+
+
+</style>>

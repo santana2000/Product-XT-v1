@@ -1,35 +1,27 @@
 <template>
     <!-- 导航按钮     -->
-  <div class="home">
+  <div class="my-navbar">
     <!-- assets的资源在这里用 -->
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+ 
+    <div id="a">
+      sss
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'NavBar',
   components: {
-    HelloWorld
+    
   },
     data(){
         return {
             //搜索框输入值
             searchValue:'',
-
-            //存放博文列表的数组
-            blogListData:[
-                { uuid:1,title:'nodejs 的使用',author:'wang',time:'2020-11-26'},
-                { uuid:2,title:'c++ 的使用',author:'wang',time:'2020-10-21'},
-                { uuid:3,title:'type js 的使用',author:'wang',time:'2020-08-22'},
-                { uuid:4,title:'python 的使用',author:'wang',time:'2020-05-18'},
-                { uuid:5,title:'css 的使用',author:'wang',time:'2020-05-08'},
-            ],
-
 
         };
     },
@@ -49,3 +41,13 @@ export default {
     }
 }
 </script>
+<style scoped>
+#a{
+  position: absolute;
+  top: 160px;
+  left: 20px;
+  width: 40px;
+  height: 100px;
+  background-color: aquamarine;
+}
+</style>

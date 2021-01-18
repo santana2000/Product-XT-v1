@@ -1,19 +1,20 @@
 <template>
-  <div class="home">
-    <!-- assets的资源在这里用 -->
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="my-navtree">
+      <div id="my-tree-el">
+            tree
+      </div>
+    
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'NavTree',
   components: {
-    HelloWorld
+    
   },
     data(){
         return {
@@ -48,3 +49,19 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.my-navtree{
+    height: 100%;
+    float: left;
+}
+#my-tree-el{
+  height: 100%;
+  position: absolute;
+  top:0px;
+  left: 0px;
+  width: 200px;
+  background-color: rgb(68, 179, 114);
+}
+
+</style>>

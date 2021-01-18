@@ -1,36 +1,27 @@
 <template>
   <!-- 标题栏 + 右侧的小控件 -->
-  <div class="home">
+  <div class="my-titlebar">
     <!-- assets的资源在这里用 -->
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <div id="b">
+          sssssaa
+        </div>
+ 
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'TitleBar',
   components: {
-    HelloWorld
+    
   },
     data(){
         return {
             //搜索框输入值
             searchValue:'',
-
-            //存放博文列表的数组
-            blogListData:[
-                { uuid:1,title:'nodejs 的使用',author:'wang',time:'2020-11-26'},
-                { uuid:2,title:'c++ 的使用',author:'wang',time:'2020-10-21'},
-                { uuid:3,title:'type js 的使用',author:'wang',time:'2020-08-22'},
-                { uuid:4,title:'python 的使用',author:'wang',time:'2020-05-18'},
-                { uuid:5,title:'css 的使用',author:'wang',time:'2020-05-08'},
-            ],
-
-
         };
     },
     mounted(){
@@ -49,3 +40,16 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+#b{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100px;
+  /* padding-right: 10px; */
+
+  background-color: rgb(62, 139, 202);
+}
+</style>

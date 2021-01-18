@@ -10,7 +10,7 @@
       <router-link to="/error">404</router-link>
     </div>
 
-    <router-view/>
+    <router-view id="my-router-view"/>
   </div>
 </template>
 
@@ -41,4 +41,8 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+/* #my-router-view{
+  height: 90%;
+} */
 </style>

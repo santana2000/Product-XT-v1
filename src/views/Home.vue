@@ -4,18 +4,26 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
 
     <!-- 在组件中调节样式 -->
+
     <MapContainer/>
+    <TitleBar/>
+    <NavBar/>
+
   </div>
 </template>
 
-<script>
+<script>                      
 // @ is an alias to /src
 import MapContainer from './page-cesium/MapContainer.vue';
+import TitleBar from './page-cesium/TitleBar.vue';
+import NavBar from './page-cesium/NavBar.vue';
 
 export default {
   name: 'Home',
   components: {
-    MapContainer
+    MapContainer,
+    NavBar,
+    TitleBar
   },
     data(){
         return {
@@ -54,6 +62,7 @@ export default {
 <style scoped>
 .home{
   height: 90%;
+  position: relative;
 }
 
 </style>>
