@@ -8,15 +8,16 @@
 </template>
 <script>
 // @ is an alias to /src
-import NavTree from './page-table/NavTree.vue';
-import VisualTools from './page-table/VisualTools.vue';
-import ElementTools from './page-table/ElementTools.vue';
+import NavTree from './page-tools/NavTree.vue';
+import VisualTools from './page-tools/VisualTools.vue';
+import ElementTools from './page-tools/ElementTools.vue';
+import OtherTools from './page-tools/OtherTools.vue';
 
 
 export default {
   name: 'About',
   components: {
-    NavTree,VisualTools,ElementTools
+    NavTree,VisualTools,ElementTools,OtherTools
   },
     data(){
         return {

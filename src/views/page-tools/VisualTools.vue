@@ -1,18 +1,18 @@
 <template>
-  <div class="my-element">
+  <div class="my-visual">
     <!-- assets的资源在这里用 -->
-element
+ visual
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'ElementTools',
+  name: 'VisualTools',
   components: {
-    HelloWorld
+    
   },
     data(){
         return {
@@ -48,10 +48,10 @@ export default {
 }
 </script>
 <style scoped>
-.my-element{
+.my-visual{
     height: 100%;
     margin-left: 200px;
-    background-color: darkgoldenrod;
+    background-color: rgb(231, 123, 104);
 }
 
 

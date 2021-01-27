@@ -1,7 +1,7 @@
 <template>
-  <div class="my-visual">
+  <div class="my-other">
     <!-- assets的资源在这里用 -->
- visual
+OtherTools
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 // import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'VisualTools',
+  name: 'OtherTools',
   components: {
     
   },
@@ -48,10 +48,10 @@ export default {
 }
 </script>
 <style scoped>
-.my-visual{
+.my-other{
     height: 100%;
     margin-left: 200px;
-    background-color: rgb(212, 102, 83);
+    background-color: rgba(219, 173, 22, 0.74);
 }
 
 
