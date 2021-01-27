@@ -2,8 +2,8 @@
   <!-- 标题栏 + 右侧的小控件 -->
   <div class="my-titlebar">
     <!-- assets的资源在这里用 -->
-        <div id="b">
-          sssssaa
+        <div id="title-name">
+            可视化
         </div>
  
   </div>
@@ -42,14 +42,18 @@ export default {
 </script>
 
 <style scoped>
-#b{
+#title-name{
   position: absolute;
   top: 0px;
   left: 0px;
   width: 100%;
-  height: 100px;
+  height: 80px;
   /* padding-right: 10px; */
-
-  background-color: rgb(62, 139, 202);
+color: whitesmoke;
+font-size: 30px;
+  background-color: rgba(43, 129, 199, 0.808);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
