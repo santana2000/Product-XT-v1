@@ -21,6 +21,10 @@
         </i>
         
         <div class="sideContent" ref="mybar">
+            <div class="mytop">
+                TEST
+            </div>
+            <p class="mytext">okok</p>
         </div>
 
         <!-- <transition name="bar">
@@ -52,8 +56,9 @@ export default {
     },
 };
 </script>
-
-<style scoped>
+ 
+<style lang='scss' scoped>
+$bgcolor :rgb(124, 190, 85);
 .sideContent {
     width: 100px;
     height: 200px;
@@ -62,7 +67,15 @@ export default {
     bottom: 50px;
     background-color: rgb(56, 118, 121);
     transform: translate(100%, 0);
-    transition: transform 1s ease;
+    transition: transform 1s ;
+    .mytop{
+        background-color: $bgcolor;
+    }
+    p{
+        font-size: 35px;
+        font-family: 'Times New Roman', Times, serif;
+        color: $bgcolor;
+    }
 
     /* animation:mymove 2s ; */
 }
@@ -98,6 +111,7 @@ export default {
     right: 0px;
     bottom: 220px;
     font-size: 40px;
+    background-color: rgba(127, 255, 212, 0.699);
     transform: translate(0, 0);
     transition: transform 1s ease;
 }

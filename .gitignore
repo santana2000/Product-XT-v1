@@ -4,6 +4,7 @@ node_modules
 
 #三方库
 public/lib
+public/models
 
 
 # local env files
