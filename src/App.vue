@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/login">Login</router-link> |
+      <!-- <router-link to="/login">Login</router-link> | -->
 
       <router-link to="/">Map</router-link> |
 
       <router-link to="/about">Visual</router-link> |
 
-      <router-link to="/error">404</router-link>
+      <!-- <router-link to="/error">404</router-link> -->
     </div>
 
     <router-view id="my-router-view"/>

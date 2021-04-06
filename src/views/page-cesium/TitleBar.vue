@@ -3,7 +3,8 @@
   <div class="my-titlebar">
     <!-- assets的资源在这里用 -->
         <div id="title-name">
-            可视化
+            <!-- 可视化 -->
+            {{nowTitle}}
         </div>
  
   </div>
@@ -22,9 +23,11 @@ export default {
         return {
             //搜索框输入值
             searchValue:'',
+            nowTitle:'',
         };
     },
     mounted(){
+      this.getMockData();
 
     },
     methods:{
@@ -36,6 +39,14 @@ export default {
             })
 
         },
+        getMockData(){
+          this.$axios.get('/data/index').then(res => {            
+              console.log(res);  
+              // this.nowTitle = res.data[3].Address      
+          }).catch(err => {            
+                          
+          });
+        }
             
     }
 }

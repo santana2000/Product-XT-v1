@@ -4,7 +4,10 @@
     <!-- assets的资源在这里用 -->
  
     <div id="a">
-      sss
+      线vx
+    </div>
+    <div id="b">
+      面vx
     </div>
   </div>
 </template>
