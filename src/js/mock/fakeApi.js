@@ -12,6 +12,17 @@ Mock.mock('/api/user/login', {
     }
 }) */
 
+/* var url = 'http://api.com'
+var data = Mock.mock(url, {
+    "user|5-10":
+        [{
+            'name': '@cname', //中文名称
+            'age|1-100': 100, //100以内随机整数
+            'birthday': '@date("yyyy-MM-dd")', //日期
+            'city': '@city(false)' //中国城市
+        }]
+}); */
+
 //-------------------------------------------
 import Mock from 'mockjs' // 引入mockjs
 const Random = Mock.Random // Mock.Random 是一个工具类，用于生成各种随机数据

@@ -1,6 +1,11 @@
 <template>
   <div class="map-all">
     <div id="cesiumContainer"></div>
+    <div id="mapPlugins">
+      <plugin1></plugin1>
+      <!-- <Draw></Draw> -->
+      <router-view></router-view>
+    </div>
     <div id="liney" @click="drawLine">
       lineaaa
     </div>
@@ -10,10 +15,11 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
+import Draw from '@/components/map-tools/Draw.vue'
 
 export default {
   name: "MapContainer",
-  components: {},
+  components: {Draw},
   data() {
     return {
       //搜索框输入值
@@ -262,5 +268,14 @@ export default {
   position: fixed;
   bottom: 50px;
   right: 50px;
-}</style
->>
+}
+#mapPlugins{
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  right: 10px;
+  top: 50px;
+  background-color: rgba(255, 127, 80, 0.479);
+}
+</style>
+

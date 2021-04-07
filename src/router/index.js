@@ -32,6 +32,15 @@ const routes = [
     // 		component: Home
     // 	},
     // ]
+    children: [
+      {
+        path: "draw",
+        name: "Draw",
+        component: function() {
+          return import(/* webpackChunkName: "about" */ "../components/map-tools/Draw.vue");
+        },
+      }
+    ],
   },
   {
     path: "/about",
