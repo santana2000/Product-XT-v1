@@ -62,7 +62,8 @@ export default {
   /* padding-right: 10px; */
 color: whitesmoke;
 font-size: 30px;
-  background-color: rgba(43, 129, 199, 0.808);
+  background-color: transparent;
+  /* background-color: rgba(43, 129, 199, 0.808); */
   display: flex;
   align-items: center;
   justify-content: center;

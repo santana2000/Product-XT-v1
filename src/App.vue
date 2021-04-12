@@ -30,8 +30,9 @@
 
   height: 10%;
   padding-top: 15px;
-  border: #42b983 3px solid;
+  /* border: #42b983 3px solid; */
   background-color: darkgray;
+  box-sizing: border-box;
 }
 
 #nav a {
