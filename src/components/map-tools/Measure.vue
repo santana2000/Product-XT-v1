@@ -1,488 +1,230 @@
-<!--
- @Author:zhangbo
- @Date:2019-12-12
- @E-mail:zhangb@geovie.com.cn
- @Desc:量算工具面板
--->
-span {
-  margin: 0 5px;
-  border-radius: 4px;
-  color: #2988CC;
- }
-<!--class="closebtn iconfont icon-guanbi"-->
 <template>
-    <div id="measurePanel">
-        <el-container>
-            <el-header id="measureHead">
-                <span style="margin: 0 5px">地图量算</span>
-                <span
-                    style="margin: 0 10px"
-                    @click="$emit('closeEvent')"
-                ></span>
-                <!-- <span class="clostbtn" @click="measurePanelShow=false"></span> -->
-            </el-header>
-            <el-main class="graphic-draw-main">
-                <ul>
-                    <li>
-                        <i
-                            class="iconfont icon-distance"
-                            title="距离测量"
-                            :class="{
-                                'selected-graphic': menuSelected['distance'],
-                            }"
-                            @click="toggleClick('distance')"
-                        ></i>
-                        <span
-                            @click="toggleClick('distance')"
-                            :class="{
-                                'selected-graphic': menuSelected['area'],
-                            }"
-                            >距离</span
-                        >
-                    </li>
-                    <!-- measurePanel -->
-                    <li>
-                        <i
-                            class="iconfont icon-polygon-draw"
-                            title="面积测量"
-                            :class="{
-                                'selected-graphic': menuSelected['area'],
-                            }"
-                            @click="toggleClick('area')"
-                        ></i>
-                        <span
-                            @click="toggleClick('area')"
-                            :class="{
-                                'selected-graphic': menuSelected['area'],
-                            }"
-                            >面积</span
-                        >
-                    </li>
-                    <li>
-                        <i
-                            class="iconfont icon-delete"
-                            title="清除全部"
-                            @click="removeAll"
-                        ></i>
-                        <span @click="removeAll">清除</span>
-                    </li>
-                </ul>
-            </el-main>
-        </el-container>
-        <div class="edit-class" v-show="mode === 'distance'">
-            <el-select
-                size="mini"
-                v-model="distaceMode"
-                allow-create
-                filterable
-                title="字号"
-                default-first-option
-                placeholder="请选择"
-            >
-                <el-option
-                    key="space"
-                    label="空间距离"
-                    value="space"
-                ></el-option>
-                <el-option
-                    key="surface"
-                    label="贴地距离"
-                    value="surface"
-                ></el-option>
-            </el-select>
-        </div>
-    </div>
+  <div id="measure">
+      <!-- 测量面板 -->
+        <!-- <i class="iconfont iconyhdrawLine1"></i> -->
+        <i class="iconfont iconyhdrawSpace1" @click="startMeasure('a')">距离</i>
+        <i class="iconfont iconyhdrawSpace2" @click="D()">面积</i>
+        <i class="iconfont iconyhdrawLine2"  @click="removeGraphic">清除</i>
+        <!-- <i :class=item.src @click="showPlugins"></i> -->
+      
+  </div>
 </template>
 
 <script>
-import { PolylineGraphic, PolygonGraphic, HeightGraphic } from "./graphic";
-//import { moveDiv } from "../js/utils";
-// const Cesium = window.Cesium;
-const measureManager = [];
-// let viewer = window.viewer;
-// let viewer = undefined;
+import * as MeasureTools from './tool-measure'
 export default {
-    name: "Measure",
-    data() {
-        return {
-            mode: "",
-            curMeasureStatus: "开始测量",
-            controlImage:
-                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABpklEQVRYR+2VsS5EQRSGv/81PMKi0ngEhdYiEhKFYmtRCavTKEWvELEvQNTIBokCjUIiGo2IRnlkNkPuDrs7c++Vu4Upb2bm++afc+aKiocq5vMvUGoCZtYERiStxF5taQIevunBs5KOYiRKEQjg85IOY+BuTmGBAN6WNBkLLywQwI+BKaAlqR4rkTuBAL4MtAF376MpErkEAvgVsC7pxMxqqRLJAgH8GpgA3oBpSWepEkkCAbwhac/MdoEG8ADUJd1kJB79t49eNREtEMBPgXNJ7uHBzLZdAh5277+563iX9NyvIKMEAvg+sOg33cpI1CR14CljoEAAX5W0Y2Yuche9G98SKeCvuX0FAvgl8AIsSXo1szWfhLv35JMPFAjgO/6RcT1+AcxJenLFVgTe8yUM4AeSFoL2ussWXJ7oeyYQwG+BMQ9rZSQKxZ4V/lEDGYENYByY8QsctCNRNPa+Ar6Hm5n2cu97l0SRyMO1A9vQC/2ZRJRARoKUX21MUtECMZvlmTN8AmZmeU4Su0ZS16F/a8NqBWJPUta84auBsk4Wu0/lCXwCe0a9IfDJPoUAAAAASUVORK5CYII=",
-            removeImage:
-                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABG0lEQVRYR+2XvUoDQRRGz3kdW0FDQDCVja2vYIp0dr6BlZWNeQR7CytTCCZg7etcGYmwanZnsgaWyEy1w96fw3fv7NyVgZcD56cYICLegMNC4Fd1XGJbBBARR8CqJGDD5kR9yfmUAsyAO2CuTruCRsQ9cAlcqze7AngALoCpOs8ApOQJ4lE93xogIp6B05xjz/cLddL0/VWCwQG+6CIi0rNa1CdtiuTitAbPOZaWIBenAuyXAusTkhrz8yjl9mubzmbeSoGfDZXbV4CqQFXgXyqQZoXhPkSlN2DTrt6Ge63AEjgGJuqiZ/3TcJsad6WONsXoug1T8gSxizVSN/7YdA6cEXEA3AJnPSmegCv1vc3/TxNvT6hvboMDfACFKk0wxySHNgAAAABJRU5ErkJggg==",
-            areaManager: null,
-            distanceManager: null,
-            heightManager: null,
-            entities: [],
-            positions: [],
-            menuSelected: {},
-            distaceMode: "surface",
-            handler: "",
-            graphics:[],
-        };
+  name: "Measure",
+  data(){
+    return {
+      // data:"aa",
+      PolylineGenerator:'',
+      PolygonGenerator:'',
+
+    };
+  },
+  mounted(){
+    //先等待视图加载完成
+    // this.PolylineGenerator = new MeasureTools.PolylineGenerator();
+    // this.PolygonGenerator = new MeasureTools.PolygonGenerator();
+  },
+  methods:{
+    removeGraphic(){
+    // this.PolylineGenerator.removeLine();
     },
-    props: {
-        // viewer: {}
+    startMeasure(type) {
+      console.log('start');
+      //单独提取放到mount里
+      var myCanvas = window.viewer.scene.canvas;
+      var myHandler = new Cesium.ScreenSpaceEventHandler(myCanvas);
+      var polylinePath = [];
+
+      this.PolylineGenerator = new MeasureTools.PolylineGenerator(window.viewer,{});
+       
+      //****************************************回调！*************************** */
+      myHandler.setInputAction(this.onLeftClick, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+      myHandler.setInputAction(this.onMouseMove, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+      // myHandler.setInputAction(this.onRightClick, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
+
+      
     },
-    computed: {},
-
-    mounted() {
-        const self = this;
-        this.graphics = [];
-        self.name = "";
-        window.distanceManagers = [];
-        window.areaManagers = [];
-        window.heightManagers = [];
-        
-        this.init();
-
-        // moveDiv("measurePanel", "measureHead");
-
-        //    if (this.viewer instanceof Cesium.Viewer) {
-        //      this.init(this.viewer);
-        //    } else if (window.viewer instanceof Cesium.Viewer) {
-        //      this.init(window.viewer);
-        //    }
-        // const viewer = window.viewer;
-        //const scene=viewer.scene
+    onLeftClick(event){
+      this.PolylineGenerator.addPoint(event)
     },
-    methods: {
-        createTip() {
-            const tooltip = document.createElement("div");
-            tooltip.id = "measure_tip";
-            tooltip.className = "cursor-tip-class";
-            tooltip.innerHTML = "单击添加节点，右击结束量算.";
-            document.body.appendChild(tooltip);
-            return tooltip;
-        },
-        updateTipText(text) {
-            const tip = document.getElementById("measure_tip");
-            if (!tip) {
-                return;
-            }
-            tip.innerHTML = text;
-        },
-        tipVisible(status) {
-            const tip = document.getElementById("measure_tip");
-            if (!tip) {
-                return;
-            }
-            if (status) {
-                tip.style.display = "block";
-            } else {
-                tip.style.display = "none";
-            }
-        },
-        init() {
-            this.tooltip = this.createTip();
-            this.tipVisible(false);
-            // console.log(window.viewer);
-            // let myCanvas = window.viewer.scene.canvas;
-            // this.handler = new Cesium.ScreenSpaceEventHandler(myCanvas);
-            // var myCanvas = viewer.scene.canvas;
-            //this.handler = new Cesium.ScreenSpaceEventHandler(window.viewer.canvas);
-            // this.handler = new Cesium.ScreenSpaceEventHandler(myCanvas);
-        },
-        addEventListener() {
-            console.log(window.viewer,'adddddddddddddddddddd');
+    onMouseMove(event){
+      this.PolylineGenerator.addLine(event)
+    },
+    onRightClick(){
 
-          let myCanvas = window.viewer.scene.canvas;
-            this.handler = new Cesium.ScreenSpaceEventHandler(myCanvas);
-            const self = this;
-            let _this = this;
-            const tooltip = this.tooltip;
-            const onclick = function (e) {
-                if (!Cesium.defined(window.graphicManager)) {
-                    return;
-                }
-                //const handler=self.handler;
-                const pixel = e.position;
-                const ray = window.viewer.camera.getPickRay(pixel);
-                const cartesian = window.viewer.scene.globe.pick(
-                    ray,
-                    window.viewer.scene
-                );
-                if (self.mode === "height") {
-                    this.updateTipText("请单击地图添加终点.");
-                    window.graphicManager.popNode();
-                    self.heightMeasureHandler(pixel);
+    },
 
-                    if (window.graphicManager.positions.length === 2) {
-                        this.stopDraw();
-                    }
-                    return;
-                }
-                if (cartesian) {
-                    window.graphicManager.pushNode(cartesian);
-                }
-            };
-            const onMousemove = function (e) {
-                if (!Cesium.defined(window.graphicManager)) {
-                    return;
-                }
-                const pixel = e.endPosition;
-                tooltip.style.left = pixel.x + 10 + "px";
-                tooltip.style.top = pixel.y + 10 + "px";
-                const ray = window.viewer.camera.getPickRay(pixel);
-                const cartesian = window.viewer.scene.globe.pick(
-                    ray,
-                    window.viewer.scene
-                );
-                if (!cartesian) {
-                    return;
-                }
-                // if (self.mode === "height") {
-                //   return;
-                // }
-                
-                if (window.graphicManager.positions.length > 0) {
-                    window.graphicManager.pushNode(cartesian);
-                }
-                if (window.graphicManager.positions.length > 1) {
-                    window.graphicManager.popNode();
-                }
-            };
-            _this.handler.setInputAction(
-                onclick,
-                Cesium.ScreenSpaceEventType.LEFT_CLICK
-            );
-            _this.handler.setInputAction(
-                onMousemove,
-                Cesium.ScreenSpaceEventType.MOUSE_MOVE
-            );
 
-            _this.handler.setInputAction(() => {
-                //const pixel=e.position
-                self.stopDraw();
-                _this.handler.removeInputAction(
-                    Cesium.ScreenSpaceEventType.MOUSE_MOVE
-                );
-                _this.handler.removeInputAction(
-                    Cesium.ScreenSpaceEventType.LEFT_CLICK
-                );
-                _this.handler.removeInputAction(
-                    Cesium.ScreenSpaceEventType.RIGHT_CLICK
-                );
-                if (_this.handler.isDestroyed()) {
-                    _this.handler.destroy();
-                    _this.handler = "";
-                }
-            }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
-        },
-        heightMeasureHandler(pixel) {
-            if (!Cesium.defined(window.graphicManager)) {
-                return;
-            }
-            const position = window.viewer.scene.pickPosition(pixel);
-            window.graphicManager.pushNode(position);
-        },
-        stopDraw() {
-            if (window.graphicManager === undefined) {
-                return;
-            }
-            this.mode = undefined;
-            window.graphicManager.stopEdit();
-            this.graphics.push(window.graphicManager.entity);
-            // window.graphicManager.destory();
-            this.tipVisible(false);
-            this.positions = [];
-            this.curMeasureStatus = "开始测量";
-            measureManager.push(window.graphicManager);
-            window.graphicManager = null;
-        },
-        removeAll() {
-            for (let m of measureManager) {
-                m.remove();
-                m.destroy();
-            }
-            measureManager.splice(0);
-            this.tipVisible(false);
-        },
-        toggleClick(mode) {
-            console.log(window.viewer),'togggggggg';
 
-            this.mode = mode;
-            if (window.graphicManager) {
-                this.stopDraw();
-                return;
-            }
-            this.tipVisible(true);
-            this.curMeasureStatus = "结束测量";
-            const color = Cesium.Color.fromCssColorString("rgba(247,224,32,1)");
-            const pgcolor = Cesium.Color.fromCssColorString(
-                "rgba(247,224,32,0.5)"
-            );
-            this.addEventListener();
 
-            switch (mode) {
-                case "distance":
-                    window.graphicManager = new PolylineGraphic(
-                        window.viewer,
-                        {
-                            positions: this.positions,
-                            material: color,
-                            width: 3,
-                            clampToGround: true,
-                        },
-                        this.distaceMode
+
+
+    D (event) {
+        //1.点击菜单栏，进入绘制状态（默认贴地距离，可以开启空间距离）
+
+        //2.左键点击地球，绘制第一个点，显示点和标牌信息（如果点不在球面上，提示需要放大地球）
+        //2.移动鼠标，（如果有，先清除当前线段）随着鼠标移动动态生成连接线，显示标牌
+        //2.再次点击，绘制当前连点之间的连接线，绘制点与标牌信息
+        //2.再次移动
+        //2.右键点击，绘制连接线，绘制点、标牌和删除图标，结束当前绘制
+
+        //3.清除绘制  i:每条线的结尾处关闭按钮 ii:菜单面板中的全部清除
+
+        //
+        //4.再次点击菜单栏，结束绘制状态
+
+        //贴地距离是指点没有高度的情况？直接根据经纬度按默认函数计算
+        //空间距离通过三角形计算？在建筑物上的点到地面点的距离？
+        //两种方法与线条贴不贴地没关系，看的是测量应用场景
+
+        //笛卡尔cartesian3里的Z坐标并非物体距离地面的高度值
+        //屏幕坐标转Cartographic后，可以通过EllipsoidGeodesic中指定起始点，
+        //并直接通过surfaceDistance属性得到地表距离
+
+        //空间距离  i:在上述基础上还需要获取两点之间的高度差再通过勾股定理来计算
+        //         ii:直接获取起始点的笛卡尔坐标，通过三个坐标差计算长方体对角距离
+        // https://blog.csdn.net/luoyun620/article/details/107182493/
+
+        //尽可能多的以配置的形式，去指定各类可能发生变化的（如样式、模式、显示与否）
+
+        // isDraw = true;
+
+        // x1.创建对象，对象接收各类参数（viewer,点击位置的坐标，）
+        // x2.点击时调用对象的画点和画线方法，
+        // x3.移动时调用对象的画线方法，传入实时callback更新坐标的函数作为参数
+        // x4.右键点击调用对象的结束方法
+        // var polylinePath = new Array();
+        console.log(event, "event---");
+        console.log(event.position, "position---");
+        var position1;
+        var cartographic;
+        var ray = viewer.scene.camera.getPickRay(event.position);
+        console.log(ray, "ray---");
+        if (ray) position1 = viewer.scene.globe.pick(ray, viewer.scene);
+        console.log(position1, "cartesian3---");
+        if (position1)
+          // cartographic = Cesium.Cartographic.fromCartesian(position1);
+          // cartographic = Cesium.Ellipsoid.WGS84.cartesianToCartographic(
+          cartographic = viewer.scene.globe.ellipsoid.cartesianToCartographic(
+            position1
+          );
+        console.log(cartographic,'cartographic---');
+        if (cartographic) {
+          var height = viewer.scene.globe.getHeight(cartographic);
+          var point = Cesium.Cartesian3.fromDegrees(
+            (cartographic.longitude / Math.PI) * 180,
+            (cartographic.latitude / Math.PI) * 180,
+            height
+          );
+
+          polylinePath.push(point); //加点
+
+            if (polylinePath.length == 1) {
+                var startpoint = viewer.entities.add({
+                    position: point,
+                    point: {
+                        heightReference:
+                            Cesium.HeightReference.CLAMP_TO_GROUND,
+                        show: true,
+                        color: Cesium.Color.SKYBLUE,
+                        pixelSize: 5,
+                        outlineColor: Cesium.Color.YELLOW,
+                        outlineWidth: 3,
+                    },
+                    label: {
+                        text: "起点",
+                        font: "14pt monospace",
+                        color: Cesium.Color.RED,
+                        backgroundColor: Cesium.Color.CORAL,
+                        style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                        outlineWidth: 2,
+                        //垂直位置
+                        heightReference: Cesium.HeightReference.NONE,
+                        verticalOrigin: Cesium.VerticalOrigin.TOP,
+                        pixelOffset: new Cesium.Cartesian2(50, 0),
+                    },
+                });
+                // AllEnities.push(strartpoint);
+            }
+
+            if ( polylinePath.length > 1) {
+                var text = 0;
+                /* text =
+                    sum(disNums) +
+                    Number(
+                        getLineDis(polylinePath[0], polylinePath[1])
                     );
-                    this.updateTipText("左键测量，右键结束.");
-                    break;
-                case "area":
-                    window.graphicManager = new PolygonGraphic(
-                        window.viewer,
-                        {
-                            hierarchy: this.positions,
-                            material: pgcolor,
-                            width: 3,
-                            heightReference:
-                                Cesium.HeightReference.CLAMP_TO_GROUND,
-                        }
-                    );
-                    this.updateTipText("左键测量，右键结束");
-                    break;
-                case "height":
-                    window.graphicManager = new HeightGraphic(
-                        window.viewer,
-                        {
-                            positions: this.positions,
-                            material: color,
-                            width: 3,
-                        }
-                    );
-                    this.updateTipText("请单击地图确定起点.");
-                    break;
+                disNums.push(
+                    getLineDis(polylinePath[0], polylinePath[1])
+                ); */
+                var temppoint = viewer.entities.add({
+                    position: point,
+                    point: {
+                        heightReference:
+                            Cesium.HeightReference.CLAMP_TO_GROUND,
+                        show: true,
+                        color: Cesium.Color.SKYBLUE,
+                        pixelSize: 3,
+                        outlineColor: Cesium.Color.YELLOW,
+                        outlineWidth: 1,
+                    },
+                    label: {
+                        // text: text.toFixed(2).toString() + "公里",
+                        text: "公里",
+                        font: "14pt monospace",
+                        color: Cesium.Color.RED,
+                        backgroundColor: Cesium.Color.CORAL,
+                        style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                        outlineWidth: 2,
+                        //垂直位置
+                        heightReference: Cesium.HeightReference.NONE,
+                        verticalOrigin: Cesium.VerticalOrigin.TOP,
+                        pixelOffset: new Cesium.Cartesian2(50, 0),
+                    },
+                });
+                // AllEnities.push(temppoint);
+
+                var polyline = viewer.entities.add({
+                    polyline: {
+                        show: true,
+                        positions: polylinePath,
+                        material: new Cesium.PolylineOutlineMaterialProperty(
+                            {
+                                color: Cesium.Color.RED,
+                            }
+                        ),
+                        width: 2,
+                    },
+                });
+                // AllEnities.push(polyline);
+                // LineEntities.push(polyline); //加直线
+                var lastpoint = polylinePath[polylinePath.length - 1];
+                // polylinePath = [lastpoint]; //只有两个点
             }
-            // this.mode=undefined;
-        },
-    },
-    watch: {
-        distaceMode(n) {
-            window.graphicManager.setMode(n);
-        },
-    },
-};
+        }
+      },
+  }
+
+}
 </script>
 
-<style lang="scss" scoped>
-#measurePanel {
-    position: absolute;
-    background: rgba(23, 30, 38, 1);
-    /*background: rgba(0, 0, 0, 0.3);*/
-    border-radius: 4px;
-    z-index: 2;
-    right: 10px;
-    bottom: 30px;
-    color: #2988cc;
-    width: 210px;
-    border-radius: 4px;
-    font-size: 12px;
-}
-.icon-class {
-    margin: 0 5px;
-    color: #2988cc;
-}
-.el-header {
-    height: 32px !important;
-    line-height: 32px !important;
-    border-bottom: 1px solid #1f3c5c;
-    padding: 0 5px;
-    border-radius: 4px;
-    span {
-        /*margin: 0 5px;*/
-        border-radius: 4px;
-        color: #2988cc;
-    }
-}
-.edit-class {
-    height: 52px;
-    line-height: 52px;
-    vertical-align: top;
-    padding: 0 5px;
-    border-top: 1px solid #1f3c5c;
-    .el-select {
-        vertical-align: top;
-        width: 120px;
-        /deep/ .el-input__inner {
-            background-color: #171e26;
-            border: 1px solid #2988cc;
-            color: #2988cc;
-            margin: 0 5px;
-        }
-    }
-}
-.graphic-draw-main {
-    height: 52px;
-    padding: 0 5px;
-    /*background-color: #171E26;*/
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    /*color: #2988CC;*/
-    // line-height: 60%;
-    vertical-align: middle;
-    color: #2988cc;
-    ul {
-        cursor: default;
-        border-radius: 4px;
-        padding: 0;
-        overflow: hidden;
-        // border-bottom: 1px solid $devision-color;
-        height: 43px;
-        margin: 0;
-        // margin-top: 0 0 5px 0;
-        li {
-            cursor: pointer;
-            float: left;
-            padding: 0 0 0;
-            width: 65px;
-            height: 100%;
-            box-sizing: border-box;
-            list-style: none;
-            &:hover {
-                i {
-                    color: #ffffff;
-                }
-                span {
-                    color: #ffffff;
-                }
-            }
-            i {
-                display: block;
-                height: 16px;
-                width: 16px;
-                background-size: contain;
-                // vertical-align: middle;
-                margin: 0 auto;
-                margin-top: 8px;
-            }
-            span {
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                display: block;
-                text-align: center;
-                vertical-align: middle;
-                font-size: 12px;
-                color: #2988cc;
-                line-height: 22px;
-            }
-        }
-    }
-}
-</style>
 <style>
-.tip-class {
-    position: fixed;
-    border: 1px #b6aeae solid;
-    width: 250px;
-    height: 30px;
-    line-height: 30px;
-    padding-left: 10px;
-    background-color: #00000088;
-    color: #fff;
-    border-radius: 6px 6px 6px 0px;
-    pointer-events: none;
+#measure{
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    background-color: cadetblue;
+    /* height: 100px; */
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.iconfont{
+  font-size: 25px !important;
+  margin-bottom: 20px;
 }
 </style>
