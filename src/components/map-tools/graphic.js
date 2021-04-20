@@ -4,12 +4,12 @@
  * @E-mail:zhangb@geovie.com.cn
  * @Desc:基本图形类
  */
-//const Cesium = window.Cesium;
-const Cesium = window;
+const Cesium = window.Cesium;
+// const Cesium = window;
 const radiansPerDegree = Math.PI / 180.0; //角度转化为弧度(rad)
 const degreesPerRadian = 180.0 / Math.PI; //弧度转化为角度
-console.log(Cesium, "Cesium");
-console.log(window.Cesium, "window.Cesium");
+// console.log(Cesium, "Cesium");
+// console.log(window.Cesium, "window.Cesium");
 const color = Cesium.Color.fromCssColorString("rgba(247,224,32,0.6)");
 const pointStyle = {
 	pixelSize: 8,

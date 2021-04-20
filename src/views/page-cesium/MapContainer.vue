@@ -4,8 +4,8 @@
     <div id="mapPlugins">
 
       <!-- vuex显隐版插件 -->
-      <Measure v-show="$store.state.measureSymbol"></Measure>
-      <Draw v-show="$store.state.drawSymbol"></Draw>
+      <Measure v-show="showMeasure"></Measure>
+      <Draw v-show="showDraw"></Draw>
       <!-- vuex显隐版插件 -->
 
       <!-- bus显隐版插件 -->
@@ -116,6 +116,16 @@ export default {
     },
     
   },
+  computed:{
+    showMeasure(){
+      return this.$store.state.measureSymbol
+
+    },
+    showDraw(){
+      return this.$store.state.drawSymbol
+    },
+
+  }
 };
 </script>
 
