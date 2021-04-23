@@ -78,15 +78,15 @@ export default {
 					url: Cesium.IonResource.fromAssetId(1),
                 }),
                  */
-        /* imageryProvider: new Cesium.UrlTemplateImageryProvider({
+        imageryProvider: new Cesium.UrlTemplateImageryProvider({
           url: "http://127.0.0.1:8300/sdc/tiles/image/{z}/{x}/{reverseY}.jpg",
           // "/myMap/sdc/tiles/image/{z}/{x}/{reverseY}.jpg",
           tilingScheme: new Cesium.GeographicTilingScheme(),
-        }), */
-        imageryProvider: new Cesium.UrlTemplateImageryProvider({
+        }),
+        /* imageryProvider: new Cesium.UrlTemplateImageryProvider({
                     url:
                         "http://wprd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=6",
-                }),
+        }), */
                
       });
       /*viewer.imageryLayers.addImageryProvider(

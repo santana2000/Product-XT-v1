@@ -64,8 +64,7 @@ class PolylineGenerator {
         }
     }
 
-    addPoint(event,x) {
-        let finalLineArr = [];
+    addPoint(event) {
         let tempPoint = this.getTempPosition(event, 'tempPoint');
         //把点位添加至数组中
         if (tempPoint) {
@@ -89,15 +88,7 @@ class PolylineGenerator {
                     point: this.options.point,
                     label: this.options.label
                 });
-                if(x === 'final'){
-                    // 连续多次测量，保证上次的不被清空
-                    finalLineArr = this.pointArr
-                    console.log(finalLineArr,'fainal');
-                }
                 let updatePoi = () => {
-                    if(x === 'final'){
-                        return finalLineArr;
-                    }
                     return this.pointArr;
                 };
                 if (this.pointArr.length > 1) {
@@ -143,7 +134,6 @@ class PolylineGenerator {
     restart(){
         this.pointArr = [];
         this.tempLineArr = [];
-        this.sumDistance = 0;
     }
 
     removeLine() {
