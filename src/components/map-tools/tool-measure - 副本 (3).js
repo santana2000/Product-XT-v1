@@ -6,6 +6,7 @@
 
 //获取Cesium对象，在index.html中引入过
 const Cesium = window.Cesium;
+
 const COLOR = Cesium.Color.fromCssColorString("rgba(247,224,32,0.6)");
 const LABEL_STYLE = {
     font: "36px sans-serif",
@@ -42,8 +43,8 @@ class PolylineGenerator {
         this.sumDistance = 0;
     }
 
-    //点击获取球上位置
     getTempPosition(event, poiType) {
+        //获取位置
         let ray;
         let position;
         let tempPoint;
@@ -56,36 +57,16 @@ class PolylineGenerator {
         if (ray) {
             // position = this.viewer.scene.globe.pick(ray, this.viewer.scene);
             tempPoint = this.viewer.scene.globe.pick(ray, this.viewer.scene);
-        }
+        } 
         // console.log(position, "cartesian3---");
-        if (tempPoint) {
+        if(tempPoint){
             return tempPoint
         }
     }
-    //点击一次绘制点和线，final为右键结束该线路，restart点击清除所有绘制
-    addPoint(event, x) {
-        let finalLineArr = [];  //多次测量时保存上次的折线
-        let updatePoi = () => {
-            if (x === 'final' || x === 'restart') {
-                return finalLineArr;
-            }
-            return this.pointArr;
-        };
-        if (x === 'final') {
-            finalLineArr = this.pointArr;  //连续多次测量，保证上次的不被清空
-        } else if (x === 'restart') {
-            //清除上一次，多次绘制后的最后一条线段
-            finalLineArr = [];
-            this.options.polyline.positions = new Cesium.CallbackProperty(
-                updatePoi,
-                false
-            );
-            const entityLine = this.viewer.entities.add({
-                polyline: this.options.polyline,
-            });
-            return;
-        }
 
+    addPoint(event,x) {
+        let finalLineArr = [];
+        
         let tempPoint = this.getTempPosition(event, 'tempPoint');
         //把点位添加至数组中
         if (tempPoint) {
@@ -109,7 +90,18 @@ class PolylineGenerator {
                     point: this.options.point,
                     label: this.options.label
                 });
-
+                if(x === 'final'){
+                    // 连续多次测量，保证上次的不被清空
+                    finalLineArr = this.pointArr
+                    console.log(finalLineArr,'fainal');
+                }
+                let updatePoi = () => {
+                    if(x === 'final'){
+                        console.log('zzxing');
+                        return finalLineArr;
+                    }
+                    return this.pointArr;
+                };
                 if (this.pointArr.length > 1) {
                     this.options.polyline.positions = new Cesium.CallbackProperty(
                         updatePoi,
@@ -124,7 +116,10 @@ class PolylineGenerator {
             }
         }
 
-
+        function clearFinalArr(){
+            finalLineArr = [];
+        }
+        return clearFinalArr;
     }
     addLine(event) {
         //防止鼠标直接移入界面时获取不到值报错
@@ -152,13 +147,13 @@ class PolylineGenerator {
         }
     }
 
-    /*  clearLastestArr() {
-        let fo = this.addPoint(event, 'restart');
+    clearLastestArr(){
+        let fo = this.addPoint();
         fo();
         console.log('en');
-    } */
+    }
 
-    restart() {
+    restart(){
         this.pointArr = [];
         this.tempLineArr = [];
         this.sumDistance = 0;
@@ -185,22 +180,12 @@ class PolylineGenerator {
         let cartographic
         if (position) {
             cartographic = Cesium.Cartographic.fromCartesian(
-                // cartographic = this.viewer.scene.globe.ellipsoid.cartesianToCartographic(
+            // cartographic = this.viewer.scene.globe.ellipsoid.cartesianToCartographic(
                 position
             );
             return cartographic
         }
     }
-
-    /* changeFinalArr() {
-        var finalLineArr = [];
-        function getArr() {
-            return finalLineArr;
-        }
-        function reSetArr() {
-            finalLineArr = [];
-        }
-    } */
 
 }
 

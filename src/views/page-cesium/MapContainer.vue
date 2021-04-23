@@ -158,9 +158,9 @@ export default {
   /* height: 500px; */
   height: 50%;
   position: absolute;
-  right: 10px;
+  right: 30px;
   top: 50px;
-  background-color: rgba(255, 127, 80, 0.479);
+  background-color: rgba(231, 195, 182, 0.479);
 }
 
 </style>
