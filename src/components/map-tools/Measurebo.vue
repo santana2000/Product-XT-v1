@@ -187,7 +187,7 @@ export default {
         addEventListener() {
             console.log(window.viewer,'adddddddddddddddddddd');
 
-          let myCanvas = window.viewer.scene.canvas;
+            let myCanvas = window.viewer.scene.canvas;
             this.handler = new Cesium.ScreenSpaceEventHandler(myCanvas);
             const self = this;
             let _this = this;
@@ -300,8 +300,6 @@ export default {
             this.tipVisible(false);
         },
         toggleClick(mode) {
-            console.log(window.viewer),'togggggggg';
-
             this.mode = mode;
             if (window.graphicManager) {
                 this.stopDraw();

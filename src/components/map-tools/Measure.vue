@@ -53,10 +53,10 @@ export default {
                     this.onLeftClick,
                     Cesium.ScreenSpaceEventType.LEFT_CLICK
                 );
-                this.myHandler.setInputAction(
+                /* this.myHandler.setInputAction(
                     this.onMouseMove,
                     Cesium.ScreenSpaceEventType.MOUSE_MOVE
-                );
+                ); */
                 this.myHandler.setInputAction(
                     this.onRightClick,
                     Cesium.ScreenSpaceEventType.RIGHT_CLICK
@@ -82,6 +82,7 @@ export default {
                 this.endMeasure();
             }
         },
+        
         endMeasure() {
             this.myHandler.removeInputAction(
                 Cesium.ScreenSpaceEventType.MOUSE_MOVE

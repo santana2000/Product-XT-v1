@@ -44,6 +44,9 @@ class PolylineGenerator {
 
     //点击获取球上位置
     getTempPosition(event, poiType) {
+        console.log(event.position,'event.position---');
+        var z = this.viewer.camera.pickEllipsoid(event.position,this.viewer.scene.globe.ellipsoid)
+        console.log(z,'地表position---cartesian3---');
         let ray;
         let position;
         let tempPoint;
@@ -52,12 +55,13 @@ class PolylineGenerator {
         } else if (poiType == 'tempLine') {
             ray = this.viewer.scene.camera.getPickRay(event.endPosition);
         }
-        // console.log(ray, "ray---");
         if (ray) {
             // position = this.viewer.scene.globe.pick(ray, this.viewer.scene);
             tempPoint = this.viewer.scene.globe.pick(ray, this.viewer.scene);
         }
-        // console.log(position, "cartesian3---");
+        console.log(tempPoint, "地形position---cartesian3---");
+        console.log(ray, "ray---");
+
         if (tempPoint) {
             return tempPoint
         }
@@ -123,8 +127,6 @@ class PolylineGenerator {
                 this.tempLineArr[0] = this.pointArr[this.pointArr.length - 1];
             }
         }
-
-
     }
     addLine(event) {
         //防止鼠标直接移入界面时获取不到值报错
