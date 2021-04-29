@@ -63,7 +63,7 @@ class PolylineGenerator {
     addPoint(event, x) {
         let finalLineArr = [];  //多次测量时保存上次的折线
         let updatePoi = () => {
-            if (x === 'rightClick' || x === 'restart') {
+            if (x === 'final' || x === 'restart') {
                 return finalLineArr;
             }
             return this.pointArr;
@@ -72,7 +72,7 @@ class PolylineGenerator {
 
         if (x === 'rightClick') {
             finalLineArr = this.pointArr;  //连续多次测量，保证上次的不被清空
-            this.firstClick = false;  //如果是右键 就不操作
+            this.firstClick = false;
         } else if (x === 'restart') {
             //清除上一次，多次绘制后的最后一条线段
             finalLineArr = [];
@@ -257,7 +257,6 @@ class PolygonGenerator {
                 //draw polygon...
             }else if (x === 'restart'){
                 //clear finalArr
-                
             }
         }
          

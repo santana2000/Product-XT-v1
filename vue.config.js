@@ -13,9 +13,9 @@ module.exports = {
         // port: 8085,
         // https: false,
         // hotOnly: false,
-        /* proxy:{
+        proxy:{
             "/baseApi":{             
-                target:'http://z:9898',
+                target:'http://127.0.0.1:8300',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/getTargetApi': ''
@@ -30,7 +30,7 @@ module.exports = {
             },
             
             
-        }, */
+        },
         /* configureWebpack: {
             output: {
                 sourcePrefix: ' '

@@ -41,7 +41,6 @@ export default {
       
       measureSymbol:false, //测量显隐标识
       drawSymbol:false,//标绘显隐标识
-
     };
   },
   mounted() {
@@ -53,7 +52,6 @@ export default {
         this.measureSymbol = !this.measureSymbol;
       }else if(para === 'draw'){
         this.drawSymbol = !this.drawSymbol;
-
       }
     }) */
   },
@@ -79,22 +77,22 @@ export default {
                 }),
                  */
         imageryProvider: new Cesium.UrlTemplateImageryProvider({
-          url: "http://127.0.0.1:8300/sdc/tiles/image/{z}/{x}/{reverseY}.jpg",
-          // "/myMap/sdc/tiles/image/{z}/{x}/{reverseY}.jpg",
-          tilingScheme: new Cesium.GeographicTilingScheme(),
+          url: window.GlobalConfig.BASE_MAP_URL + "/sdc/tiles/image/{z}/{x}/{reverseY}.jpg",
+          tilingScheme: new Cesium.GeographicTilingScheme()
         }),
         /* imageryProvider: new Cesium.UrlTemplateImageryProvider({
                     url:
                         "http://wprd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=6",
         }), */
-               
       });
-      /*viewer.imageryLayers.addImageryProvider(
+      /* viewer.imageryLayers.addImageryProvider(
                 new Cesium.UrlTemplateImageryProvider({
                     url:
                         "http://wprd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=8",
                 })
-            ); */
+      ); */
+
+
       /* var anno = new Cesium.UrlTemplateImageryProvider({
         // url: "static/tiles/{z}/{x}/{y}.png"
         url:

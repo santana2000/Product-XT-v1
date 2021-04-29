@@ -27,7 +27,7 @@ export default {
         };
     },
     mounted(){
-      this.getMockData();
+      // this.getMockData();
 
     },
     methods:{

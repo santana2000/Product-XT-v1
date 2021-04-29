@@ -5,7 +5,7 @@
 
         <i class="iconfont iconyhdrawLine1" @click="startMeasure('length')"></i>
 
-        <!-- <i class="iconfont iconyhdrawSpace2" @click="D()"></i> -->
+        <i class="iconfont iconyhdrawSpace2" @click="startMeasure('area')"></i>
         <i class="iconfont iconyhguanbi" @click="removeGraphic()"></i>
         <!-- <i :class=item.src @click="showPlugins"></i> -->
     </div>
@@ -30,14 +30,13 @@ export default {
     },
     methods: {
         startMeasure(type) {
-            console.log("start");
+            console.log("start测量");
             //防止多次重复点击绘制按钮
             if (this.drawStatus == true) {
                 // console.log("redraw");
                 return;
             } else {
                 this.drawStatus = true;
-                //单独提取放到mount里
                 var myCanvas = window.viewer.scene.canvas;
                 this.myHandler = new Cesium.ScreenSpaceEventHandler(myCanvas);
                 var polylinePath = [];
@@ -48,15 +47,19 @@ export default {
                         {}
                     );
                 } else if (type === "area") {
+                    this.PolyGenerator = new MeasureTools.PolygonGenerator(
+                        window.viewer,
+                        {}
+                    );
                 }
                 this.myHandler.setInputAction(
                     this.onLeftClick,
                     Cesium.ScreenSpaceEventType.LEFT_CLICK
                 );
-                /* this.myHandler.setInputAction(
+                this.myHandler.setInputAction(
                     this.onMouseMove,
                     Cesium.ScreenSpaceEventType.MOUSE_MOVE
-                ); */
+                ); 
                 this.myHandler.setInputAction(
                     this.onRightClick,
                     Cesium.ScreenSpaceEventType.RIGHT_CLICK
@@ -71,14 +74,14 @@ export default {
             this.PolyGenerator.addLine(event);
         },
         onRightClick(event) {
-            this.PolyGenerator.addPoint(event, "final");
+            this.PolyGenerator.addPoint(event, "rightClick");
             this.PolyGenerator.restart();
         },
         //清除后默认结束本次测量
         removeGraphic() {
             if (this.PolyGenerator !== "") {
                 this.PolyGenerator.removeLine();
-                this.PolyGenerator.addPoint(event, "restart"); //最后一条
+                this.PolyGenerator.addPoint(event, "restart"); //清除上次绘制的一组中的最后一条（清空finalArr数组）
                 this.endMeasure();
             }
         },
