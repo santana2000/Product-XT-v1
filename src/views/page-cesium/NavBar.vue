@@ -45,6 +45,12 @@ export default {
               tip:'标注',
               name:'Draw',
               src:'iconfont iconyhdrawSpace2'
+            },
+            {
+               id:3,
+              tip:'缓冲区',
+              name:'Buffer',
+              src:'iconfont iconyhdrawSpace2'
             }
             ],
 

@@ -5,8 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    measureSymbol:true,
+    measureSymbol:false,
     drawSymbol:false,
+    bufferAnalyse:true,
 
   },
   mutations: {
@@ -15,8 +16,10 @@ export default new Vuex.Store({
     },
     activeDraw(state){
       state.drawSymbol = !state.drawSymbol
-
-    }
+    },
+    activeBuffer(state){
+      state.bufferAnalyse = !state.bufferAnalyse
+    },
   },
   actions: {
   },

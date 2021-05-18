@@ -18,12 +18,10 @@ Vue.use(ElementUI)
 import './assets/icons/iconmap/iconfont.css'
 
 //mockjs
-//mock开关
-const mock = true;
-if (mock) {
-    require('./js/mock/fakeApi')
-}
-// axios.defaults.baseURL = '/api';
+// const mock = true;
+// if (mock) {
+//     require('./js/mock/fakeApi')
+// }
 
 
 

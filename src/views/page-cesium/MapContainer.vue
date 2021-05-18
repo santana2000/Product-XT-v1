@@ -6,6 +6,7 @@
       <!-- vuex显隐版插件 -->
       <Measure v-show="showMeasure"></Measure>
       <Draw v-show="showDraw"></Draw>
+      <BufferAnalyse v-show="showBuffer"></BufferAnalyse> 
       <!-- vuex显隐版插件 -->
 
       <!-- bus显隐版插件 -->
@@ -26,11 +27,12 @@
 // import HelloWorld from '@/components/HelloWorld.vue'
 import Draw from '@/components/map-tools/Draw.vue'
 import Measure from '@/components/map-tools/Measure.vue';
+import BufferAnalyse from '@/components/map-tools/BufferAnalyse.vue';
 import yBus from '@/js/common/bus.js';
 
 export default {
   name: "MapContainer",
-  components: {Draw,Measure},
+  components: {Draw,Measure,BufferAnalyse},
   data() {
     return {
       //搜索框输入值
@@ -76,21 +78,21 @@ export default {
 					url: Cesium.IonResource.fromAssetId(1),
                 }),
                  */
-        imageryProvider: new Cesium.UrlTemplateImageryProvider({
+        /* imageryProvider: new Cesium.UrlTemplateImageryProvider({
           url: window.GlobalConfig.BASE_MAP_URL + "/sdc/tiles/image/{z}/{x}/{reverseY}.jpg",
           tilingScheme: new Cesium.GeographicTilingScheme()
-        }),
-        /* imageryProvider: new Cesium.UrlTemplateImageryProvider({
+        }), */
+        imageryProvider: new Cesium.UrlTemplateImageryProvider({
                     url:
                         "http://wprd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=6",
-        }), */
+        }),
       });
-      /* viewer.imageryLayers.addImageryProvider(
+      viewer.imageryLayers.addImageryProvider(
                 new Cesium.UrlTemplateImageryProvider({
                     url:
                         "http://wprd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=8",
                 })
-      ); */
+      );
 
 
       /* var anno = new Cesium.UrlTemplateImageryProvider({
@@ -108,9 +110,9 @@ export default {
       viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(
         Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK
       );
-      viewer.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(116, 39.521196, 20000000),
-      });
+      // viewer.camera.flyTo({
+      //   destination: Cesium.Cartesian3.fromDegrees(116, 39.521196, 20000000),
+      // });
     },
     
   },
@@ -122,7 +124,9 @@ export default {
     showDraw(){
       return this.$store.state.drawSymbol
     },
-
+    showBuffer(){
+      return this.$store.state.bufferAnalyse
+    },
   }
 };
 </script>
