@@ -51,6 +51,12 @@ export default {
               tip:'缓冲区',
               name:'Buffer',
               src:'iconfont iconyhdrawSpace2'
+            },
+            {
+               id:4,
+              tip:'图层树',
+              name:'Tree',
+              src:'iconfont iconyhhuizhi'
             }
             ],
 

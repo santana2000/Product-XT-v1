@@ -1,17 +1,17 @@
 <template>
   <div class="my-other">
-      <SideBar></SideBar>
+      <SlideBar></SlideBar>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import SideBar from '@/components/normal-tools/SideBar.vue'
+import SlideBar from '@/components/normal-tools/SlideBar.vue'
 
 export default {
   name: 'OtherTools',
   components: {
-    SideBar
+    SlideBar
   },
     data(){
         return {

@@ -8,9 +8,14 @@ export default new Vuex.Store({
     measureSymbol:false,
     drawSymbol:false,
     bufferAnalyse:true,
+    layerTree:false,
+    viewerLoadStatus:false
 
   },
   mutations: {
+    loadViewerSuccess(state){
+      state.viewerLoadStatus = true;
+    },
     activeMeasure(state){
       state.measureSymbol = !state.measureSymbol
     },
@@ -19,6 +24,9 @@ export default new Vuex.Store({
     },
     activeBuffer(state){
       state.bufferAnalyse = !state.bufferAnalyse
+    },
+    activeTree(state){
+      state.layerTree = !state.layerTree
     },
   },
   actions: {

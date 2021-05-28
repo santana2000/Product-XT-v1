@@ -1,6 +1,14 @@
 <template>
   <div class="map-all">
-    <div id="cesiumContainer"></div>
+    <div id="cesiumContainer">
+      <MousePoi v-if="showPoi"></MousePoi>
+
+    </div>
+    <!-- 图层树 -->
+    <div id="layer-ttrree">
+      <LayerTree v-show="showTree"></LayerTree>
+    </div>
+    <!-- 插件 -->
     <div id="mapPlugins">
 
       <!-- vuex显隐版插件 -->
@@ -19,6 +27,7 @@
       <!-- 路由版插件 -->
 
     </div>
+
   </div>
 </template>
 
@@ -28,11 +37,13 @@
 import Draw from '@/components/map-tools/Draw.vue'
 import Measure from '@/components/map-tools/Measure.vue';
 import BufferAnalyse from '@/components/map-tools/BufferAnalyse.vue';
+import MousePoi from '@/components/map-tools/MousePoi.vue';
+import LayerTree from '@/components/map-tools/LayerTree.vue';
 import yBus from '@/js/common/bus.js';
 
 export default {
   name: "MapContainer",
-  components: {Draw,Measure,BufferAnalyse},
+  components: {Draw,Measure,BufferAnalyse,MousePoi,LayerTree},
   data() {
     return {
       //搜索框输入值
@@ -103,6 +114,8 @@ export default {
       });
       viewer.imageryLayers.addImageryProvider(anno); */
 
+      this.$store.commit(`loadViewerSuccess`);
+
       viewer.scene.globe.showGroundAtmosphere = false;
       //去掉logo
       viewer._cesiumWidget._creditContainer.style.display = "none";
@@ -125,8 +138,19 @@ export default {
       return this.$store.state.drawSymbol
     },
     showBuffer(){
-      return this.$store.state.bufferAnalyse
+      if (this.$store.state.viewerLoadStatus) {
+          return this.$store.state.bufferAnalyse
+      }else{
+        return;
+      }
     },
+    showTree(){
+      return this.$store.state.layerTree
+    },
+    showPoi(){
+      return this.$store.state.viewerLoadStatus;
+
+    }
   }
 };
 </script>
@@ -161,6 +185,15 @@ export default {
   height: 50%;
   position: absolute;
   right: 30px;
+  top: 50px;
+  background-color: rgba(231, 195, 182, 0.479);
+}
+#layer-ttrree{
+   width: 200px;
+  /* height: 500px; */
+  height: 50%;
+  position: absolute;
+  left: 60px;
   top: 50px;
   background-color: rgba(231, 195, 182, 0.479);
 }
