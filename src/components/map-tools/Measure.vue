@@ -111,6 +111,7 @@ export default {
     background-color: cadetblue;
     /* height: 100px; */
     width: 40px;
+    height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

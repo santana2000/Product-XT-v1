@@ -23,6 +23,7 @@ import './assets/icons/iconmap/iconfont.css'
 //     require('./js/mock/fakeApi')
 // }
 
+// import './js/mock/fakeApi.js'
 
 
 

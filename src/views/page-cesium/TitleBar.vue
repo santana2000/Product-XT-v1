@@ -1,6 +1,6 @@
 <template>
   <!-- 标题栏 + 右侧的小控件 -->
-  <div class="my-titlebar">
+  <div class="my-titlebar" >
     <!-- assets的资源在这里用 -->
         <div id="title-name">
             <!-- 可视化 -->
@@ -13,6 +13,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
+// import '../../js/mock/fakeApi.js'
 
 export default {
   name: 'TitleBar',
@@ -24,6 +25,7 @@ export default {
             //搜索框输入值
             searchValue:'',
             nowTitle:'',
+            
         };
     },
     mounted(){
@@ -40,6 +42,7 @@ export default {
 
         },
         getMockData(){
+          // debugger;
           this.$axios.get('/data/index').then(res => {            
               console.log(res);  
               // this.nowTitle = res.data[3].Address      
@@ -63,7 +66,7 @@ export default {
 color: whitesmoke;
 font-size: 30px;
   background-color: transparent;
-  /* background-color: rgba(43, 129, 199, 0.808); */
+  background-color: rgba(43, 129, 199, 0.808);
   display: flex;
   align-items: center;
   justify-content: center;

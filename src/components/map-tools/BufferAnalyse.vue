@@ -123,7 +123,7 @@ export default {
     right: 30px;
     top: 50px;
     background-color: cadetblue;
-    /* height: 100px; */
+    height: 100px;
     width: 200px;
     display: flex;
     flex-direction: column;
