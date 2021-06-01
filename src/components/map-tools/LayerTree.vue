@@ -83,10 +83,10 @@ export default {
                     changeMaplayer.add_DATABOX_Terrain(status);
                     break;
                 case 'GDimg':   
-                    changeMaplayer.add_DATABOX_Terrain(status);
+                    // changeMaplayer.add_DATABOX_Terrain(status);
                     break;
                 case 'GDimglabel':   
-                    changeMaplayer.add_DATABOX_Terrain(status);
+                    // changeMaplayer.add_DATABOX_Terrain(status);
                     break;                                        
                 default:
                     break;

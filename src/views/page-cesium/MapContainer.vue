@@ -5,7 +5,8 @@
         </div>
         <!-- 图层树 -->
         <div id="mapLayerTree">
-            <LayerTree v-if="showTree"></LayerTree>
+            <!-- 如果用if,每次都会重新挂载一次，导致底图也重新加载，而不是直接叠加 -->
+            <LayerTree v-show="showTree"></LayerTree>
         </div>
         <!-- 插件 -->
         <div id="mapPlugins">
@@ -82,15 +83,18 @@ export default {
                 terrainProvider: new Cesium.EllipsoidTerrainProvider(),
                 // 地形能否走SDC，还是直接用webapps发布
 
-                imageryProvider: new Cesium.UrlTemplateImageryProvider({
-                    url:
-                        "http://wprd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=6",
-                }),
+                imageryProvider: window.gd_imglayer,
             });
             this.$store.commit(`loadViewerSuccess`);
 
 
-            viewer.imageryLayers.addImageryProvider(
+            window.gd_imglayer = viewer.imageryLayers.addImageryProvider(
+                new Cesium.UrlTemplateImageryProvider({
+                    url:
+                        "http://wprd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=6",
+                })
+            );
+            window.gd_annolayer = viewer.imageryLayers.addImageryProvider(
                 new Cesium.UrlTemplateImageryProvider({
                     url:
                         "http://wprd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=8",

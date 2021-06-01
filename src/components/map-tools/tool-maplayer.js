@@ -1,8 +1,9 @@
 const Cesium = window.Cesium;
 
 let add_DATABOX_Img = function(val){
-  console.log(window.boxImgLayer,'window.boxImgLayer');
   if (val) {
+    // window.viewer.imageryLayers.remove(window.gd_imglayer);
+
     window.boxImgLayer = window.viewer.imageryLayers.addImageryProvider(
         new Cesium.UrlTemplateImageryProvider({
           url:window.GlobalLayerConfig.BOXMAP_IMAGE_URL,
