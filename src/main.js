@@ -15,7 +15,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 
 //字体图标
-import './assets/icons/iconmap/iconfont.css'
+// import './assets/icons/iconmap/iconfont.css'
 
 //mockjs
 // const mock = true;

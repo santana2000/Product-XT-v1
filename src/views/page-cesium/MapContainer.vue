@@ -1,7 +1,9 @@
 <template>
     <div class="mapContainer">
         <div id="cesiumContainer">
+            <PlaceSearch></PlaceSearch>
             <MousePoi v-if="showPoi"></MousePoi>
+            
         </div>
         <!-- 图层树 -->
         <div id="mapLayerTree">
@@ -35,12 +37,13 @@ import Draw from "@/components/map-tools/Draw.vue";
 import Measure from "@/components/map-tools/Measure.vue";
 import BufferAnalyse from "@/components/map-tools/BufferAnalyse.vue";
 import MousePoi from "@/components/map-tools/MousePoi.vue";
+import PlaceSearch from "@/components/map-tools/PlaceSearch.vue";
 import LayerTree from "@/components/map-tools/LayerTree.vue";
 import yBus from "@/js/common/bus.js";
 
 export default {
     name: "MapContainer",
-    components: { Draw, Measure, BufferAnalyse, MousePoi, LayerTree },
+    components: { Draw, Measure, BufferAnalyse, MousePoi, LayerTree, PlaceSearch},
     data() {
         return {
             //搜索框输入值

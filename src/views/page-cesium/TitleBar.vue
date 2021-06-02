@@ -30,6 +30,7 @@ export default {
     },
     mounted(){
       // this.getMockData();
+      //自适应屏（rem）与响应式（优雅降级-宽屏一行六个-中屏一行三个-小屏一行一个）
 
     },
     methods:{

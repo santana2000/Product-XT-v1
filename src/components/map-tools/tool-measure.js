@@ -1,8 +1,12 @@
-//  点击进入测量状态（传入参数、距离还是面积）
-//  创建 handler
-//  为handler绑定点击事件 （左、移动、右）
-//  抽取事件对应的函数（传参不同，函数执行内容不同
-//  移除handler
+/*  
+    点击进入测量状态（传入参数、距离还是面积）
+    创建 handler
+    为handler绑定点击事件 （左、移动、右）
+    抽取事件对应的函数（传参不同，函数执行内容不同
+    移除handler 
+*/
+
+let turf = require('@turf/turf')
 
 //获取Cesium对象，在index.html中引入过
 const Cesium = window.Cesium;
@@ -33,6 +37,7 @@ class PolylineGenerator {
     constructor(viewer, options) {
         this.viewer = viewer;
         this.options = options;
+        //应该从外部传入的option中获取
         this.options.point = POINT_STYLE;
         this.options.polyline = LINE_STYLE;
         this.options.label = LABEL_STYLE;
@@ -43,13 +48,15 @@ class PolylineGenerator {
         this.firstClick = true;
     }
 
-    //点击获取球上位置
+    //获取球上位置
     getTempPosition(event, poiType) {
         let ray;
         let tempPoint;
         if (poiType == 'tempPoint') {
+            //点击的位置
             ray = this.viewer.scene.camera.getPickRay(event.position);
         } else if (poiType == 'tempLine') {
+            //鼠标移动的重点位置
             ray = this.viewer.scene.camera.getPickRay(event.endPosition);
         }
         if (ray) {
@@ -119,6 +126,7 @@ class PolylineGenerator {
                     //只更新位置数组，这个entity始终没变
                     const entityLine = this.viewer.entities.add({
                         polyline: this.options.polyline,
+                        
                     });
                 }
                 this.tempLineArr[0] = this.pointArr[this.pointArr.length - 1];
@@ -310,6 +318,8 @@ class PolygonGenerator {
 
     }
     addPolygon(){
+        //绘制当前移动点与线段数组  第一点和末尾点的连线
+
 
     }
 

@@ -39,7 +39,7 @@ export default {
                 this.drawStatus = true;
                 var myCanvas = window.viewer.scene.canvas;
                 this.myHandler = new Cesium.ScreenSpaceEventHandler(myCanvas);
-                var polylinePath = [];
+                var polylinePath = [];//??
 
                 if (type === "length") {
                     this.PolyGenerator = new MeasureTools.PolylineGenerator(
@@ -103,21 +103,20 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #measure {
     position: absolute;
     right: 30px;
     top: 50px;
     background-color: cadetblue;
-    /* height: 100px; */
+    /* height: 180px; */
     width: 40px;
-    height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 .iconfont {
-    font-size: 25px !important;
+    font-size: 32px !important;
     margin-bottom: 20px;
 }
 </style>

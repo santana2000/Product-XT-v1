@@ -117,7 +117,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #buffer {
     position: absolute;
     right: 30px;
@@ -130,7 +130,7 @@ export default {
     justify-content: space-around;
 }
 .iconfont {
-    font-size: 25px !important;
-    margin-bottom: 20px;
+    /* font-size: 25px !important;
+    margin-bottom: 20px; */
 }
 </style>

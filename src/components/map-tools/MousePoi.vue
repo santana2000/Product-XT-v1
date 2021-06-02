@@ -129,7 +129,8 @@ export default {
     left: 20px;
     bottom: 20px;
     z-index: 99;
-    background-color: bisque;
+    background-color: rgba(255, 228, 196, 0.623);
+    border-radius: 5px;
     height: 7%;
     width: 220px;
     display: flex;

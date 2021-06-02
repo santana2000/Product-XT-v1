@@ -1,9 +1,8 @@
 // const path = require('path')
 
 module.exports = {
-    // https://cli.vuejs.org/zh/config/#publicpath
-    // publicPath: './',
-    // outputDir: "D:\\CommonApp",
+    publicPath: './',
+    outputDir: "D:\\CommonApp\\ok",
     // assetsDir:"static",
     // indexPath:'index.html',
     devServer: {
