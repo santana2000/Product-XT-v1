@@ -1,7 +1,8 @@
 <template>
   <div class="my-other">
+      <SideMenu></SideMenu>
       <SlideBar></SlideBar>
-      <Carousel></Carousel>
+      <!-- <Carousel></Carousel> -->
       <Carousel class="zzss"></Carousel>
        
   </div>
@@ -10,13 +11,15 @@
 <script>
 // @ is an alias to /src
 import SlideBar from '@/components/normal-tools/SlideBar.vue'
-import Carousel from '../../components/normal-tools/Carousel.vue';
+import Carousel from '@/components/normal-tools/Carousel.vue';
+import SideMenu from '@/components/normal-tools/SideMenu.vue';
 
 export default {
   name: 'OtherTools',
   components: {
     SlideBar,
     Carousel,
+    SideMenu
   },
     data(){
         return {
