@@ -5,3 +5,16 @@ import visualData from '@/api/visualData'
 
 // 引用时不需要再去寻找各个接口的位置
 export default {mapData,visualData} 
+
+var value = 1;
+
+function foo() {
+    console.log(value);
+}
+
+var bar = () => {
+    var value = 2;
+    foo();
+}
+
+bar();

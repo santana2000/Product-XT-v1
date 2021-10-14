@@ -5,9 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    measureSymbol:false,
+    measureSymbol:true,
     drawSymbol:false,
-    bufferAnalyse:true,
+    bufferAnalyse:false,
     layerTree:false,
     viewerLoadStatus:false
 

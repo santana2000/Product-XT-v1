@@ -1,5 +1,5 @@
-import { get, post, del, put } from '@/api/utils/request'
-import api_url from '@/api/index_url'
+import { get, post, del, put } from "@/api/utils/request";
+import api_url from "@/api/index_url";
 
 /* export const getCatTable = () => {
     get({ url: `/v1/table/cat` })
@@ -12,15 +12,15 @@ export const getRowTable = (params)=>{
 } */
 
 const visual = {
-    getCatTable = () => {
-        get({ url: `/v1/table/cat` })
-    },
-    getFishTable = (params) => {
-        post({ url: `/v1/table/fish`, params: params})
-    },
-    getRowTable = (params)=>{
-        get({url:`/v1/table/row/${params}`})
-    }
-}
+  // getCatTable = () => {
+  //     get({ url: `/v1/table/cat` })
+  // },
+  // getFishTable = (params) => {
+  //     post({ url: `/v1/table/fish`, params: params})
+  // },
+  // getRowTable = (params)=>{
+  //     get({url:`/v1/table/row/${params}`})
+  // }
+};
 
 export default visual;

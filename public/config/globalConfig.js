@@ -11,4 +11,5 @@ window.GlobalConfig = {
     //系统默认的一些上传路径
     DOC_URL:'',
     IMAGE_URL:'',
+    
 }

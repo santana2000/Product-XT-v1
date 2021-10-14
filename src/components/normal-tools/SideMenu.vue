@@ -28,6 +28,7 @@
                 </li>
             </ul>
         </div>
+ 
     </div>
 </template>
 
@@ -100,6 +101,7 @@ export default {
                 },
             ],
             timer: "",
+            that:this,
         };
     },
     mounted() {
@@ -115,7 +117,8 @@ export default {
         changeMenu(i,j){
             this.activeIndex1 = i;
             this.activeIndex2 = j;
-        }
+        },
+      
     },
 };
 </script>

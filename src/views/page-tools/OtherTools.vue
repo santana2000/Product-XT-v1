@@ -3,7 +3,9 @@
       <SideMenu></SideMenu>
       <SlideBar></SlideBar>
       <!-- <Carousel></Carousel> -->
-      <Carousel class="zzss"></Carousel>
+      <div class="zzss">
+        <Carousel></Carousel>
+      </div>
        
   </div>
 </template>

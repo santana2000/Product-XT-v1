@@ -89,6 +89,7 @@ export default {
                 imageryProvider: window.gd_imglayer,
             });
             this.$store.commit(`loadViewerSuccess`);
+            window.viewer.scene.debugShowFramesPerSecond = true; //显示帧率
 
 
             window.gd_imglayer = viewer.imageryLayers.addImageryProvider(
@@ -175,7 +176,7 @@ export default {
 }
 #mapPlugins {
     /* width: 200px; */
-    height: 500px;
+    height: 100px;
     /* height: 50%; */
     padding: 10px;
     border-radius: 5px;

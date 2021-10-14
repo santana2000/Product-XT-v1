@@ -110,11 +110,12 @@ this.isNull = true
     /* width: 256px; */
     /* height: 250px; */
     position: absolute;
-    top: 100px;
-    left: 100px;
+    bottom: 200px;
+    right: 100px;
     padding: 2px;
     background-color: transparent;
     z-index: 999;
+    display: none;
 }
 .search-bar{
     /* width: 256px; */
